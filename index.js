@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cloudinary = require('cloudinary');
 require('dotenv').config()
 
 const app = express();
@@ -25,11 +24,11 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products')
+//const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product')
 
-app.use('/api/user', authRoutes);
-app.use('/api/product', productRoutes);
+//app.use('/api/user', authRoutes);
+app.use('/api', productRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
