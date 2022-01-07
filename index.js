@@ -25,10 +25,12 @@ app.use(cors(corsOptions));
 
 
 const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/product')
+const productRoutes = require('./routes/product');
+const saleRoutes = require('./routes/sale');
 
 app.use('/api', authRoutes);
 app.use('/api', productRoutes);
+app.use('/api', saleRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

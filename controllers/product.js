@@ -4,7 +4,7 @@ var controllerProduct = {
     getProducts: (req,res) => {
         Product.find( (err,product) => {
             if(err) return res.status(500).send({message: 'error al cargar'})
-            if(!product) return res.status(404).send({message: 'no existe el producto'})
+            if(!product) return res.status(404).send({message: 'no existen productos'})
             return res.status(200).send({ product })
         });
     },
