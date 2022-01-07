@@ -13,7 +13,7 @@ var controllerSale = {
 
     addSale: (req,res) => {
         const now  =  new Date();
-        const value = date.format(now,'YYYY/MM/DD');
+        const value = date.format(now,'DD/MM/YYYY');
         const newSale = new Sale({
             total: req.body.total,
             listProducts: req.body.listProducts,
