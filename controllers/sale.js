@@ -18,7 +18,9 @@ var controllerSale = {
             total: req.body.total,
             listProducts: req.body.listProducts,
             date: value,
-            fiado: req.body.fiado
+            fiado: req.body.fiado,
+            seller: req.body.seller,
+            buyer: req.body.buyer
         })
 
         newSale.save( (err,newSale) => {

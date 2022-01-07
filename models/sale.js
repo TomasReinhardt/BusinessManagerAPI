@@ -16,6 +16,13 @@ const saleSchema = mongoose.Schema({
     fiado: {
         type: Boolean,
         require: true
+    },
+    seller: {
+        type: String,
+        require: true
+    },
+    buyer: {
+        type: String,
     }
 })
 

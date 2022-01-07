@@ -40,8 +40,9 @@ var controllerUser = {
                 error: null,
                 data: userDB
             })
-        }   catch (error) {
-                res.status(400).json(error)
+        }   
+        catch (error) {
+            res.status(400).json(error)
         }
     },
 
@@ -61,6 +62,7 @@ var controllerUser = {
         }, process.env.TOKEN_SECRET)
 
         res.header('auth-token',token).json({
+            user: user.name,
             token
         })
     }
