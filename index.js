@@ -24,10 +24,10 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-//const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product')
 
-//app.use('/api/user', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api', productRoutes);
 
 const PORT = process.env.PORT || 3000;
