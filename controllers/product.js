@@ -14,7 +14,8 @@ var controllerProduct = {
             name: req.body.name,
             category: req.body.category,
             price: req.body.price,
-            stock: req.body.stock
+            stock: req.body.stock,
+            cant: req.body.cant
         })
 
         product.save( (err,product) => {
