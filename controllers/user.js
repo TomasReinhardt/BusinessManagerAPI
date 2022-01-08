@@ -5,13 +5,14 @@ const jwt = require('jsonwebtoken');
 
 const schemaRegister = Joi.object({
     name: Joi.string().min(3).max(255).required(),
-    username: Joi.string().min(6).max(255).required(),
+    username: Joi.string().min(4).max(255).required(),
     password:  Joi.string().min(8).max(1024).required(),
 })
 
 const schemaLogin = Joi.object({
-    username: Joi.string().min(6).max(255).required(),
-    password: Joi.string().min(6).max(1024).required()
+    name: Joi.string().min(3).max(255).required(),
+    username: Joi.string().min(4).max(255).required(),
+    password: Joi.string().min(8).max(1024).required()
 })
 
 var controllerUser = {
@@ -21,9 +22,13 @@ var controllerUser = {
 
         if(error) return res.status(400).json({error: error.details[0].message});
 
-        const exisEmail = await User.findOne({email: req.body.email});
+        const exisName = await User.findOne({name: req.body.name});
 
-        if(exisEmail) return res.status(400).json({error:true, message: "El correo ya existe"});
+        if(exisName) return res.status(400).json({error:true, message: "La persona ya tiene cuenta"});
+
+        const exisusername = await User.findOne({username: req.body.username});
+
+        if(exisusername) return res.status(400).json({error:true, message: "El usuario ya existe"});
 
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.password, salt);
