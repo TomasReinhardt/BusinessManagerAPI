@@ -1,19 +1,12 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const morgan = require('morgan');
 require('dotenv').config()
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-
-const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@funkopop-database.pexou.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
-mongoose.connect(uri,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-)
-.then(() => console.log('Base de datos conectada'))
-.catch(e => console.log('error db:', e)) 
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 // cors
 const cors = require('cors');
