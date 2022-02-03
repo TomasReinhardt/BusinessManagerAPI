@@ -16,6 +16,7 @@ var controllerProduct = {
             category: req.body.category,
             price: req.body.price,
             stock: req.body.stock,
+            codigo: req.body.codigo
         }
 
         connection.query('INSERT INTO products SET ?',[product], (err,result) => {
@@ -32,7 +33,8 @@ var controllerProduct = {
             category: req.body.category,
             price: req.body.price,
             stock: req.body.stock,
-            cant: req.body.cant
+            cant: req.body.cant,
+            codigo: req.body.codigo
         };
         connection.query('UPDATE products SET ? where id = ?',[product,productId], (err,result) => {
             if (err) return res.status(500).send({ message: 'error al actualizar' });
