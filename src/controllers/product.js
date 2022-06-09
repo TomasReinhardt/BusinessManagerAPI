@@ -3,7 +3,7 @@ const connection = dbConnection();
 
 var controllerProduct = {
     getProducts: (req,res) => {
-        connection.query('SELECT * FROM productsBussinesManager', (err, result) => {
+        connection.query('SELECT * FROM productsbussinesmanager', (err, result) => {
             if (err) return res.status(500).send({ message: 'error al cargar' });
             if (!result) return res.status(404).send({ message: 'no existen productos' });
             return res.status(200).send({ result });
@@ -19,7 +19,7 @@ var controllerProduct = {
             codigo: req.body.codigo
         }
 
-        connection.query('INSERT INTO productsBussinesManager SET ?',[product], (err,result) => {
+        connection.query('INSERT INTO productsbussinesmanager SET ?',[product], (err,result) => {
             if(err) return res.status(500).send(err.sqlMessage)
             if(!result) return res.status(404).send({ message: 'no se a podido guardar el producto' })
             return res.status(200).send({message:'Save product'})
@@ -36,7 +36,7 @@ var controllerProduct = {
             cant: req.body.cant,
             codigo: req.body.codigo
         };
-        connection.query('UPDATE productsBussinesManager SET ? where id = ?',[product,productId], (err,result) => {
+        connection.query('UPDATE productsbussinesmanager SET ? where id = ?',[product,productId], (err,result) => {
             if (err) return res.status(500).send({ message: 'error al actualizar' });
             if (!result) return res.status(404).send({ message: 'no existe el product' });
             return res.status(200).send({message:'Update product'});
@@ -45,7 +45,7 @@ var controllerProduct = {
 
     deleteProduct: (req,res) => {
         var productId = req.params.id;
-        connection.query('DELETE FROM productsBussinesManager WHERE id = ?',[productId], (err,result) => {
+        connection.query('DELETE FROM productsbussinesmanager WHERE id = ?',[productId], (err,result) => {
             if(err) return res.status(500).send({ message: 'error al eliminar' })
             return res.status(200).send({message:'Delete product'})
         })
