@@ -4,9 +4,19 @@ const connection = dbConnection();
 var controllerSale = {
 
     getSales: (req,res) => {
-        connection.query('SELECT * FROM salesbussinesmanager', (err, result) => {
+        var saleDate = req.params.date+'%';
+        console.log(saleDate)
+        connection.query('select * from salesbussinesmanager where date like ?',[saleDate], (err, result) => {
             if(err) return res.status(500).send({ message: 'error al cargar' })
             if(!result) return res.status(404).send({ message: 'no existen ventas' })
+            return res.status(200).send({ result })
+        })
+    },
+
+    getDates: (req,res) => {
+        connection.query('SELECT date FROM salesbussinesmanager', (err, result) => {
+            if(err) return res.status(500).send({ message: 'error al cargar' })
+            if(!result) return res.status(404).send({ message: 'no existen fechas' })
             return res.status(200).send({ result })
         })
     },
@@ -29,7 +39,6 @@ var controllerSale = {
 
     updateSale: (req,res) => {
         var saleId = req.params.id;
-        console.log(saleId)
         var sale = {
             fiado: req.body.fiado
         };
