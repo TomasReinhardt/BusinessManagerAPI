@@ -5,8 +5,7 @@ var controllerSale = {
 
     getSales: (req,res) => {
         var saleDate = req.params.date+'%';
-        console.log(saleDate)
-        connection.query('select * from salesbussinesmanager where date like ?',[saleDate], (err, result) => {
+        connection.query('SELECT * FROM salesbussinesmanager WHERE date like ?',[saleDate], (err, result) => {
             if(err) return res.status(500).send({ message: 'error al cargar' })
             if(!result) return res.status(404).send({ message: 'no existen ventas' })
             return res.status(200).send({ result })
@@ -17,6 +16,23 @@ var controllerSale = {
         connection.query('SELECT date FROM salesbussinesmanager', (err, result) => {
             if(err) return res.status(500).send({ message: 'error al cargar' })
             if(!result) return res.status(404).send({ message: 'no existen fechas' })
+            return res.status(200).send({ result })
+        })
+    },
+
+    getSalesClients: (req,res) => {
+        var saleClient = req.params.client;
+        connection.query('select * from salesbussinesmanager WHERE buyer=?',[saleClient], (err, result) => {
+            if(err) return res.status(500).send({ message: 'error al cargar' })
+            if(!result) return res.status(404).send({ message: 'no existen ventas' })
+            return res.status(200).send({ result })
+        })
+    },
+    
+    getClients: (req,res) => {
+        connection.query('SELECT distinct buyer FROM salesbussinesmanager WHERE fiado=false', (err, result) => {
+            if(err) return res.status(500).send({ message: 'error al cargar' })
+            if(!result) return res.status(404).send({ message: 'no existen clientes' })
             return res.status(200).send({ result })
         })
     },
@@ -42,7 +58,7 @@ var controllerSale = {
         var sale = {
             fiado: req.body.fiado
         };
-        connection.query('UPDATE salesbussinesmanager SET ? where id = ?',[sale,saleId], (err,result) => {
+        connection.query('UPDATE salesbussinesmanager SET ? WHERE id = ?',[sale,saleId], (err,result) => {
             if (err) return res.status(500).send({ message: 'error al actualizar' });
             if (!result) return res.status(404).send({ message: 'no existe la venta' });
             return res.status(200).send({message:'Update sale'});
